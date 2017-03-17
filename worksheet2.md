@@ -7,7 +7,7 @@ There is a [detailed guide](https://www.raspberrypi.org/learning/physical-comput
 To start with, you can mount your Distance Sensor on a breadboard. Use a 330ohm and 470 ohm resistor to connect the pins to your Raspberry Pi.
 In the example below, the breakout part of the Motor Controller Board has been used. The `echo` pin feeds into `GP17` and the `trig` pin feeds into `GP4`.
 
-![Ultrasonic wiring](images/ultrasonic.png)
+![Ultrasonic wiring](images/ultrasonic.jpg)
 
 ## Testing your Distance Sensor.
 

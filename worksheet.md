@@ -17,11 +17,11 @@ Some motor controller chips can use the Raspberry Pi as a power supply. Others r
 
 1. The battery pack *must* be connected so that the red wire goes into port labeled UTN. The black wire goes into the port labeled GND. Make sure the battery pack is turned off as you do this.
 
-	![Board connected to power and motors](images/connect1.png)
+	![Board connected to power and motors](images/connect1.jpg)
 
 1. The style of motor controller board used in this project can sit directly onto the Raspberry Pi GPIO header pins, and uses pins 7, 8, 9 and 10. With motors and power connected, and your Raspberry Pi switched off, you can place the board over the pins of your Raspberry Pi as shown below.
 
-	![Board connected to Raspberry Pi](images/connect2.png)
+	![Board connected to Raspberry Pi](images/connect2.jpg)
 
 1. You can now power your Raspberry Pi up.
 
@@ -65,7 +65,7 @@ remy = Robot(left = (7, 8), right = (9, 10))
 
 1. You can add labels to your motors to indicate which is left and right, and which way is forward.
 
-![Motors Left and Right](images/label.png)
+![Motors Left and Right](images/label.jpg)
 
 ## What Next?
 

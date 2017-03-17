@@ -16,10 +16,10 @@ The line sensor used in this project is a digital sensor. This means it will ret
 
 ## Testing you line sensor
 
-1. A line sensor has also been included in the gpiozero library, so it's easy to test that your line sensor is working correctly. First import the `linesensor` class and then create an object for the line sensor on pin 18.
+1. A line sensor has also been included in the gpiozero library, so it's easy to test that your line sensor is working correctly. First import the `LineSensor` class and then create an object for the line sensor on pin 18.
 
 	```python
-	from gpiozero import linesensor
+	from gpiozero import LineSensor
 	ls = linesensor(18)
 	```
 2. There are a few methods that you can use with the a linesensor. For instance you can halt your program until a the line sensor is over a line.
@@ -34,8 +34,8 @@ The line sensor used in this project is a digital sensor. This means it will ret
 4. Another useful method is `when_line` and `when_no_line`. These can be used to run functions that you have written. Have a play with the code below, and try and understadn what is happening.
 
 	```
-	from gpiozero import linesensor
-	ls = linesensor(18)
+	from gpiozero import LineSensor
+	ls = LineSensor(18)
 
 	def a_line():
 		print('Found a line')
