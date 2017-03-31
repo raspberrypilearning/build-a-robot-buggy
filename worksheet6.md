@@ -40,30 +40,105 @@ Here is one method you coudl try though:
   1. If over line drive forward
   1. If not over line find line
 
-1. Let's begin with 
+1. Thinking ahead, the chances are that you'll want to be able to tweak the speed that the robot is running at, so it's probably best to set it as a variable at the start of the algorithm.
 
+```python
+speed = 0.5
+```
 
+1. The first part of the algorithm is fairly simple. If the robot is on a line, you need it to drive forwards. This can be easily packaged up into a simple function.
+
+```python
+def on_line():
+    robot.forward(speed)
+```
+
+1. This can now be tested. You can use an infinite loop to tell the robot to drive forwards when it's on a line and stop when it loses the line.
+
+```python
+while True:
+    if ls.line_detected:
+        on_line()
+    else:
+        remy.stop()
+```
+
+1. Now you can test that it's all working okay. You'll have to pick up your robot and place it back on a line if it loses it though.
+
+1. Next you need a function to find the line. This can also be broken down into structured English.
+  1. Stop the robot
+  1. Turn right for x seconds.
+  1. Stop
+  1. Turn left for 2x seconds.
+  1. Stop
+  1. Increase x
+  1. Repeat until the line is found
+
+1. With this algorithm the robot should scan left and right by every increasing amounts until it finds the line.
+
+1. First you can define the function and stop the robot, giving it a little pause as well.
+
+```python
+def find_line():
+    robot.stop()
+	sleep(0.2)
+```
+
+1. Next you can set the time that the robot is going to take to turn right, in it's first scan. This will still be in the funtion.
+
+```python
+def find_line():
+    robot.stop()
+	sleep(0.2)
+	periond = 0.25
+```
 
 
 
 ```python
 from gpiozero import LineSensor, Robot
+from time import sleep, time
 
-robot = Robot(left=(9, 10), right=(7, 8))
-line = LineSensor(25)
+robot = Robot(left=(7, 8), right=(9, 10))
+line = LineSensor(18)
 
-robot.source_delay = 0.5
-speed = 0.6
+speed = 0.8
 
-def look_for_line():
+def on_line():
+    robot.forward(speed)
+
+def find_line():
+    robot.stop()
+    sleep(0.2)
+    period = 0.05
     while True:
-        yield (1, 0.5)  # left motor full speed, right motor half speed
-        yield (0.5, 1)  # left motor half speed, right motor full speed
+
+        start = time()
+        robot.right(speed+0.1)
+        while time() < (start + period):
+            print('Searching right with period,',period)      
+            if line.line_detected:
+                robot.stop()
+                print('line detected')
+                return 1
+            pass
+        period += 0.05
+        robot.stop()
+        start = time()
+        robot.left(speed)
+        while time() < (start + period):
+            print('Searching right with period,',period)
+            if line.line_detected:
+                robot.stop()
+                print('line detected')
+                return 1
+            pass
+        robot.stop()
+        period += 0.05
 
 while True:
-    robot.forward(speed)
-    line.wait_for_no_line()  # go forward until the line is lost
-    robot.source = look_for_line()  # alternate between slight left and slight right
-    line.wait_for_line()  # until the line is found
-	robot.source = None # unset the source to stop looking left and right
+    if line.line_detected:
+        on_line()
+    else:
+        find_line()
 ```
